@@ -34,9 +34,9 @@ class ImageCapture:
                 print("Failed to capture frame.")
             time.sleep(1/FPS)
 
-    def _send_frame(self, frame):
+    def _send_frame(self, og_frame):
 
-        frame_resized = cv2.resize(frame, (640, 480))
+        frame = cv2.resize(og_frame, (640, 480))
 
         cv2.putText(frame, "SUB-CAM-1", (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
         
