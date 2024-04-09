@@ -6,6 +6,7 @@ Subcam server ja Webcam capture scribu.
 
 - Raspberry Pi tms. pythonilla ja pipillä
 - USB webcam
+- Joku pannu
 
 ### Raspi Setup
 
