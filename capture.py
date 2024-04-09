@@ -9,6 +9,7 @@ from datetime import datetime
 WEBCAM_INDEX = 0  # Index of your USB webcam, typically 0
 FPS = 10          # Frames per second for capturing
 POST_URL = 'http://athene.fi:3333/upload'  # URL to which images will be POSTed
+CIRCLE_ON = True
 
 class ImageCapture:
     def __init__(self):
@@ -26,6 +27,7 @@ class ImageCapture:
         self.capture_thread.join()
 
     def _capture_loop(self):
+
         while self.is_capturing:
             ret, frame = self.capture.read()
             if ret:
@@ -45,8 +47,13 @@ class ImageCapture:
 
         rec_text = "REC"
         cv2.putText(frame, rec_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2, cv2.LINE_AA)
-        cv2.circle(frame, (90, 20), 13, (0, 0, 255), -1)  # Draw a red filled circle (ball)
         
+        if CIRCLE_ON:
+            cv2.circle(frame, (90, 20), 13, (0, 0, 255), -1)  # Draw a red filled circle (ball)
+            CIRCLE_ON = False
+        else:
+            CIRCLE_ON = True
+
         _, img_encoded = cv2.imencode('.jpg', frame)
         
         try:

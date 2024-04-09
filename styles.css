@@ -1,0 +1,15 @@
+body {
+  background-color: #5e8c64;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.stream-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+}
