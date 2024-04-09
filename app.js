@@ -1,6 +1,6 @@
 function connectWebSocket(passwordAttempt) {
     // Initialize a new WebSocket connection with the password
-    const ws = new WebSocket(`ws://localhost:8888/?password=${passwordAttempt}`);
+    const ws = new WebSocket(`ws://athene.fi/ws/?password=${passwordAttempt}`);
 
     ws.onopen = function() {
         console.log('WebSocket connection established');
@@ -17,11 +17,27 @@ function connectWebSocket(passwordAttempt) {
             if (newPassword !== null && newPassword !== "") {
                 connectWebSocket(newPassword);
             }
-        if (event.code === 4000) { // Assuming the server uses this code for auth failures
-            
-        } else {
-            console.log('WebSocket closed. Please check the connection or server.');
+
+    };
+    ws.onmessage = function(event) {
+        const base64Image = event.data;
+        const imageContainer = document.getElementById('image-container');
+    
+        // Check if the image element already exists
+        let img = document.querySelector('#image-container img');
+        if (!img) {
+            // If it doesn't exist, create a new img element
+            img = document.createElement('img');
+            imageContainer.appendChild(img); // Add the new img element to the DOM
         }
+        // Update the src of the img element to the new image
+        img.src = `data:image/jpeg;base64,${base64Image}`;
+        img.style.maxWidth = '100%'; // Ensure the image fits within the container
+        img.alt = 'Uploaded Image';
+    };
+    
+    ws.onerror = function(error) {
+        console.log('WebSocket error: ', error);
     };
 }
 
