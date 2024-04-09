@@ -1,6 +1,6 @@
 function connectWebSocket(passwordAttempt) {
     // Initialize a new WebSocket connection with the password
-    const ws = new WebSocket(`ws://athene.fi/ws/?password=${passwordAttempt}`);
+    const ws = new WebSocket(`wss://athene.fi/ws/?password=${passwordAttempt}`);
 
     ws.onopen = function() {
         console.log('WebSocket connection established');

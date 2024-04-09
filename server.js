@@ -33,6 +33,18 @@ const server = http.createServer((req, res) => {
 
 wss.on('connection', function connection(ws) {
   console.log('A client connected via WebSocket.');
+  const filePath = path.join(__dirname, 'uploads', 'latest_image.jpg'); // Ensure the path is correct
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      console.error('Error reading the latest image file:', err);
+      // Optionally, send an error message to the client
+      // ws.send('Error loading latest image');
+      return;
+    }
+    const base64Image = data.toString('base64');
+    // Send the Base64-encoded image to the newly connected client
+    ws.send(base64Image);
+  });
 });
 
 // Handle upgrade requests
