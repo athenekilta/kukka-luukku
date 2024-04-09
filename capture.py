@@ -8,7 +8,7 @@ from datetime import datetime
 # Constants
 WEBCAM_INDEX = 0  # Index of your USB webcam, typically 0
 FPS = 10          # Frames per second for capturing
-POST_URL = 'https://SERVER_URL:PORT/upload'  # URL to which images will be POSTed
+POST_URL = 'http://athene.fi:3333/upload'  # URL to which images will be POSTed
 
 class ImageCapture:
     def __init__(self):
@@ -35,10 +35,13 @@ class ImageCapture:
             time.sleep(1/FPS)
 
     def _send_frame(self, frame):
+
+        frame_resized = cv2.resize(frame, (640, 480))
+
         cv2.putText(frame, "SUB-CAM-1", (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
         
-        current_date = datetime.now().strftime("%Y-%m-%d")
-        cv2.putText(frame, current_date, (frame.shape[1] - 150, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
+        current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        cv2.putText(frame, current_date, (frame.shape[1] - 200, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
 
         rec_text = "REC"
         cv2.putText(frame, rec_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2, cv2.LINE_AA)
