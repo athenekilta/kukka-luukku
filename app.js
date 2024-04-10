@@ -4,11 +4,7 @@ function connectWebSocket(passwordAttempt) {
 
     ws.onopen = function() {
         console.log('WebSocket connection established');
-    };
-
-    ws.onerror = function(error) {
-        console.log('WebSocket error: ', error);
-        // Optionally, you could decide to prompt the user again here if there's an error.
+        localStorage.setItem('subicam-password', passwordAttempt);
     };
 
     ws.onclose = function(event) {
@@ -37,12 +33,20 @@ function connectWebSocket(passwordAttempt) {
     };
     
     ws.onerror = function(error) {
+        localStorage.removeItem('subicam-password');
         console.log('WebSocket error: ', error);
     };
 }
 
+const localStoragePassword = localStorage.getItem('subicam-password');
 // Initial password prompt
-let password = prompt("Enter the WebSocket connection password:");
+
+if (localStoragePassword) {
+    password = localStoragePassword;
+} else {
+    password = prompt("Enter the WebSocket connection password:");
+} 
+
 if (password !== null && password !== "") {
     connectWebSocket(password);
 }
