@@ -19,4 +19,5 @@ body {
 .logo {
   width: 60%;
   max-width: 800px;
+  min-width: 280px;
 }
