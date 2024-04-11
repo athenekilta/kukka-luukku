@@ -44,7 +44,7 @@ const localStoragePassword = localStorage.getItem('subicam-password');
 if (localStoragePassword) {
     password = localStoragePassword;
 } else {
-    password = prompt("Enter the WebSocket connection password:");
+    password = prompt("Enter password to access subicam:");
 } 
 
 if (password !== null && password !== "") {
